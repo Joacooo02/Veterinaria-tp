@@ -1,4 +1,4 @@
-package com.veterinaria.veterinaria.ControllerRest;
+package com.veterinaria.veterinaria.controllerRest;
 
 import com.veterinaria.veterinaria.dao.MascotaDAO;
 import com.veterinaria.veterinaria.model.ConectorSQL;
