@@ -4,22 +4,6 @@ import java.time.LocalDateTime;
 
 public class Turno {
 
-    /* CREATE TABLE turnos (
-    id_turno INT AUTO_INCREMENT PRIMARY KEY,
-    fecha_hora DATETIME NOT NULL,
-    motivo VARCHAR(50) NOT NULL,
-    estado enum ('pendiente', 'confirmado', 'cancelado', 'atendido') NOT NULL,
-
-    id_cliente INT NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES mascotas(id_cliente) ON DELETE CASCADE,
-
-    id_veterinario INT NOT NULL,
-    FOREIGN KEY (id_veterinario) REFERENCES veterinarios(id_veterinario) ON DELETE CASCADE,
-
-    id_mascota INT NOT NULL,
-    FOREIGN KEY (id_mascota) REFERENCES mascotas(id_mascota) ON DELETE CASCADE
-    */
-
     private int id_turno;
     private LocalDateTime fecha_hora;
     private String motivo;
@@ -35,7 +19,7 @@ public class Turno {
         this.id_turno = id_turno;
         this.fecha_hora = fecha_hora;
         this.motivo = motivo;
-        this.estado = estado;
+        this.estado = EstadoTurno.Pendiente;
         this.id_cliente = id_cliente;
         this.id_veterinario = id_veterinario;
         this.id_mascota = id_mascota;
@@ -45,7 +29,7 @@ public class Turno {
         this.id_turno = id_turno;
         this.fecha_hora = fecha_hora;
         this.motivo = motivo;
-        this.estado = estado;
+        this.estado = EstadoTurno.Pendiente;
         this.id_cliente = id_cliente;
         this.id_veterinario = id_veterinario;
         this.id_mascota = id_mascota;

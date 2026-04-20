@@ -83,7 +83,7 @@ public class VeterinarioDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error al mostrar el veterinario porr ID: " + e.getMessage());
+            System.err.println("Error al mostrar el veterinario por ID: " + e.getMessage());
         }
         return veterinario;
     }
