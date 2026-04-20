@@ -117,5 +117,4 @@ public class MascotaController {
         System.out.println("Mascota eliminada correctamente");
     }
 
-
 }
