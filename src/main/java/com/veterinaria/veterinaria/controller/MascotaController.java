@@ -107,4 +107,15 @@ public class MascotaController {
     }
 
 
+    public void eliminarMascota()
+    {
+        System.out.println("Ingrese el id de la mascota a eliminar:");
+        int idMascota = scanner.nextInt();
+        scanner.nextLine();
+
+        mascotaDAO.eliminarMascota(idMascota);
+        System.out.println("Mascota eliminada correctamente");
+    }
+
+
 }

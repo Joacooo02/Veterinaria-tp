@@ -100,7 +100,6 @@ public class VeterinarioDAO {
             pstm.setString(4, veterinario.getEspecialidad());
             pstm.setString(5, veterinario.getTelefono());
             pstm.setString(6, veterinario.getEmail());
-            // El ID va al final porque es la condición del WHERE
             pstm.setInt(7, veterinario.getId());
 
             int filasAfectadas = pstm.executeUpdate();
@@ -111,6 +110,23 @@ public class VeterinarioDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error al actualizar el veterinario: " + e.getMessage());
+        }
+    }
+
+    public void eliminarVeterinario(int id) {
+        String sql = "DELETE FROM veterinarios WHERE id_veterinario = ?";
+
+        try(PreparedStatement pstm = connection.prepareStatement(sql)) {
+            pstm.setInt(1, id);
+
+            int filasAfectadas = pstm.executeUpdate();
+            if(filasAfectadas > 0) {
+                System.out.println("Veterinario eliminado exitosamente.");
+            } else {
+                System.out.println("No se encontro el veterinario a eliminar.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el veterinario " + e.getMessage());
         }
     }
 }
