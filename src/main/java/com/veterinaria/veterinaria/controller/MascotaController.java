@@ -5,6 +5,7 @@ import com.veterinaria.veterinaria.model.ConectorSQL;
 import com.veterinaria.veterinaria.model.Mascota;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Scanner;
 
 public class MascotaController {
@@ -22,13 +23,6 @@ public class MascotaController {
         this.mascotaDAO = new MascotaDAO(con);
     }
 
-    /*
-     nombre VARCHAR(50) NOT NULL,
-    especie VARCHAR(30),
-    raza VARCHAR(30),
-    edad int,
-    peso int,
-     */
 
     public void insertarMascota()
     {
@@ -51,9 +45,23 @@ public class MascotaController {
         System.out.println("Se inserto la mascota correctamente");
     }
 
+    public void listarMascotas()
+    {
+        List<Mascota> lista = mascotaDAO.mostrarMascotas();
+
+        for(Mascota m : lista)
+        {
+            System.out.println(m.getId_mascota()+ " " +m.getNombre()+ " " +m.getEspecie()+ " " +m.getRaza()+ " " +m.getEdad()+ " " +m.getPeso()+ " " +m.getId_cliente());
+        }
+    }
+
+
     public void buscarMascota()
     {
-        
+        System.out.println("Ingrese el id de la mascota:");
+        int idMascota = scanner.nextInt();
+
+        List<Mascota> lista = mascotaDAO.buscarMascota()
     }
 
 
