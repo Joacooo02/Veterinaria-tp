@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/Mascotas")
@@ -32,7 +33,32 @@ public class MascotaControllerRest {
     @PostMapping
     public void insertar(@RequestBody Mascota m)
     {
+        mascotaDAO.insertarMascota(m);
+    }
 
+    @PutMapping("/{Id}")
+    public void actualizar(@PathVariable int id, @RequestBody Mascota mascota)
+    {
+        mascota.setId_mascota(id);
+        mascotaDAO.actualizarMascota(mascota);
+    }
+
+    @DeleteMapping("/{ID}")
+    public void eliminar(@PathVariable int id)
+    {
+        mascotaDAO.eliminarMascota(id);
+    }
+
+    @GetMapping("/{ID}")
+    public Optional<Mascota> buscar(@PathVariable int id)
+    {
+        return mascotaDAO.buscarMascota(id);
+    }
+
+    @GetMapping("/cliente/{idCliente}")
+    public List<Mascota> porCliente(@PathVariable int idCliente)
+    {
+        return mascotaDAO
     }
 
 
