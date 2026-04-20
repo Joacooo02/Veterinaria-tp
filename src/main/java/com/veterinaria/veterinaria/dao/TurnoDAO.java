@@ -19,7 +19,7 @@ public class TurnoDAO {
     }
 
     public void insertarTurno(String motivo, int id_cliente, int id_mascota){
-        String sql = "INSERT INTO turnos (motivo,estado) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO turnos (motivo, id_cliente, id_mascota) VALUES (?, ?, ?)";
         try{
             PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setString(1, motivo);
@@ -84,8 +84,21 @@ public class TurnoDAO {
         return turno;
     }
 
+    public void actualizarEstadoDeTurno(int id_turno, EstadoTurno estadoTurno){
+        String sql = "UPDATE turnos SET estado = ? WHERE id_turno = ?";
 
+        try(PreparedStatement stmt = conexion.prepareStatement(sql)){
+            stmt.setString(1, estadoTurno.toString());
+            stmt.setInt(2, id_turno);
 
-
-
+            int filasAfectadas = stmt.executeUpdate();
+            if(filasAfectadas > 0){
+                System.out.println("Estado del turno actualizado exitosamente.");
+            } else{
+                System.out.println("No se encontró el turno para actualizar.");
+            }
+        } catch(SQLException e){
+            System.err.println("Error al actualizar el estado del turno");
+        }
+    }
 }
