@@ -40,8 +40,4 @@ public class ClienteController {
 		clienteDAO.eliminarCliente(idCliente);
 	}
 
-
-
-
-
 }
