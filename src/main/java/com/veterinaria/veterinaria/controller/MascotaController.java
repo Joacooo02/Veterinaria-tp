@@ -18,7 +18,7 @@ public class MascotaController {
 
     //Constructor
 
-    public MascotaController(Connection con, MascotaDAO mascotaDAO) {
+    public MascotaController() {
         this.con = ConectorSQL.crearConexion();
         this.mascotaDAO = new MascotaDAO(con);
     }
