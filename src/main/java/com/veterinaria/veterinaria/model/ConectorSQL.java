@@ -18,4 +18,6 @@ public class ConectorSQL { //FALTA AGREGAR LOS PARAMETROS PASSWORD DBNAME Y URL
             return null;
         }
     }
+
+
 }
