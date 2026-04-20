@@ -10,7 +10,21 @@ public class Mascota {
     private int peso;
     private int id_cliente;
 
+
+    public Mascota() {
+    }
+
     public Mascota(String nombre, String especie, String raza, int edad, int peso, int id_cliente) {
+        this.id_mascota = id_mascota;
+        this.nombre = nombre;
+        this.especie = especie;
+        this.raza = raza;
+        this.edad = edad;
+        this.peso = peso;
+        this.id_cliente = id_cliente;
+    }
+
+    public Mascota(int id_mascota, String nombre, String especie, String raza, int edad, int peso, int id_cliente) {
         this.id_mascota = id_mascota;
         this.nombre = nombre;
         this.especie = especie;
@@ -24,6 +38,9 @@ public class Mascota {
         return id_mascota;
     }
 
+    public void setId_mascota(int id_mascota) {
+        this.id_mascota = id_mascota;
+    }
 
     public String getNombre() {
         return nombre;
@@ -67,6 +84,10 @@ public class Mascota {
 
     public int getId_cliente() {
         return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     @Override
