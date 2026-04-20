@@ -119,5 +119,18 @@ public class MascotaDAO {
         }
     }
 
-    public 
+    public void eliminarMascota(int idMascota)
+    {
+        String sql = "DELETE FROM mascotas WHERE id_mascota = ? ";
+
+        try (PreparedStatement ps = con.prepareStatement((sql))){
+
+            ps.setInt(1,idMascota);
+            ps.executeUpdate();
+
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
