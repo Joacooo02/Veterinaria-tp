@@ -98,7 +98,24 @@ public class TurnoDAO {
                 System.out.println("No se encontró el turno para actualizar.");
             }
         } catch(SQLException e){
-            System.err.println("Error al actualizar el estado del turno");
+            System.err.println("Error al actualizar el estado del turno" + e.getMessage());
         }
     }
+
+    public void eliminarTurno(int id_turno){
+        String sql = "DELETE FROM turnos WHERE id_turno = ?";
+
+        try(PreparedStatement stmt = conexion.prepareStatement(sql)){
+            stmt.setInt(1, id_turno);
+
+            int filasAfectadas = stmt.executeUpdate();
+            if(filasAfectadas > 0){
+                System.out.println("Estado del turno eliminado exitosamente.");
+            } else{
+                System.out.println("No se encontró el turno para eliminar.");
+            }
+        } catch(SQLException e){
+            System.err.println("Error al eliminar el estado del turno" + e.getMessage());
+        }
+   }
 }
