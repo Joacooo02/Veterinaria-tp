@@ -7,16 +7,16 @@ public class Veterinario {
     private String matricula;
     private String especialidad;
     private String telefono;
-    private String direccion;
+    private String email;
 
-    public Veterinario(int id, String nombre, String apellido, String matricula, String especialidad, String telefono, String direccion) {
+    public Veterinario(int id, String nombre, String apellido, String matricula, String especialidad, String telefono, String email) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.matricula = matricula;
         this.especialidad = especialidad;
         this.telefono = telefono;
-        this.direccion = direccion;
+        this.email = email;
     }
 
     public int getId() {
@@ -67,11 +67,11 @@ public class Veterinario {
         this.telefono = telefono;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
