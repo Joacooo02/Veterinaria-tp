@@ -11,7 +11,7 @@ public class Mascota {
     private int id_cliente;
 
 
-    public Mascota() {
+    public Mascota(int idMascota, String nombre, String especie, String raza, int edad, int peso) {
     }
 
     public Mascota(String nombre, String especie, String raza, int edad, int peso, int id_cliente) {
