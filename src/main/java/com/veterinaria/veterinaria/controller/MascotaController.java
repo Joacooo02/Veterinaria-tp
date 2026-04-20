@@ -1,4 +1,60 @@
 package com.veterinaria.veterinaria.controller;
 
+import com.veterinaria.veterinaria.dao.MascotaDAO;
+import com.veterinaria.veterinaria.model.ConectorSQL;
+import com.veterinaria.veterinaria.model.Mascota;
+
+import java.sql.Connection;
+import java.util.Scanner;
+
 public class MascotaController {
+
+    Scanner scanner = new Scanner(System.in);
+
+    //Atributos
+    private Connection con;
+    private MascotaDAO mascotaDAO;
+
+    //Constructor
+
+    public MascotaController(Connection con, MascotaDAO mascotaDAO) {
+        this.con = ConectorSQL.crearConexion();
+        this.mascotaDAO = new MascotaDAO(con);
+    }
+
+    /*
+     nombre VARCHAR(50) NOT NULL,
+    especie VARCHAR(30),
+    raza VARCHAR(30),
+    edad int,
+    peso int,
+     */
+
+    public void insertarMascota()
+    {
+        System.out.println("Ingrese el nombre de la mascota: ");
+        String nombreMascota = scanner.nextLine();
+        System.out.println("Ingrese la especie: ");
+        String especieMascota = scanner.nextLine();
+        System.out.println("Ingrese la raza: ");
+        String raza = scanner.nextLine();
+        System.out.println("Ingrese la edad: ");
+        int edad = scanner.nextInt();
+        System.out.println("Ingrese el peso: ");
+        int peso = scanner.nextInt();
+        System.out.println("Ingrese el id del cliente");
+        int idCliente = scanner.nextInt();
+        scanner.nextLine();
+
+        Mascota mascota = new Mascota(nombreMascota,especieMascota,raza,edad,peso,idCliente);
+        mascotaDAO.insertarMascota(mascota);
+        System.out.println("Se inserto la mascota correctamente");
+    }
+
+    public void buscarMascota()
+    {
+        
+    }
+
+
 }

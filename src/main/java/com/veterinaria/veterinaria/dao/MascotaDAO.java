@@ -25,7 +25,7 @@ public class MascotaDAO {
     {
         try {
 
-            String sql = "INSERT INTO mascotas (nombre,especie,raza,edad,peso) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO mascotas (nombre,especie,raza,edad,peso,id_cliente) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement((sql));
 
             ps.setString(1,mascota.getNombre());
@@ -33,6 +33,7 @@ public class MascotaDAO {
             ps.setString(3,mascota.getRaza());
             ps.setInt(4,mascota.getEdad());
             ps.setInt(5,mascota.getPeso());
+            ps.setInt(6,mascota.getId_mascota());
 
             ps.executeUpdate();
 

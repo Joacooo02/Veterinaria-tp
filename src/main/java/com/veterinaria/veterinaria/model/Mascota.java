@@ -14,8 +14,8 @@ public class Mascota {
     public Mascota(int idMascota, String nombre, String especie, String raza, int edad, int peso) {
     }
 
+    //INSERT
     public Mascota(String nombre, String especie, String raza, int edad, int peso, int id_cliente) {
-        this.id_mascota = id_mascota;
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
@@ -24,6 +24,7 @@ public class Mascota {
         this.id_cliente = id_cliente;
     }
 
+    //update y select
     public Mascota(int id_mascota, String nombre, String especie, String raza, int edad, int peso, int id_cliente) {
         this.id_mascota = id_mascota;
         this.nombre = nombre;
