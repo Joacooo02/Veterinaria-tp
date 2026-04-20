@@ -8,8 +8,8 @@ import java.util.List;
 public class VeterinarioController {
     private VeterinarioDAO veterinarioDAO;
 
-    public VeterinarioController() {
-        this.veterinarioDAO = new VeterinarioDAO();
+    public VeterinarioController(VeterinarioDAO veterinarioDAO) {
+        this.veterinarioDAO = veterinarioDAO;
     }
 
     public void insertarVeterinario(String nombre, String apellido, String matricula, String especialidad, String telefono, String email) {

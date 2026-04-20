@@ -1,6 +1,7 @@
 package com.veterinaria.veterinaria.View;
 
 import com.veterinaria.veterinaria.controller.VeterinarioController;
+import com.veterinaria.veterinaria.dao.VeterinarioDAO;
 import com.veterinaria.veterinaria.model.Veterinario;
 
 import java.util.List;
@@ -11,7 +12,8 @@ public class MenuVeterinario {
     private Scanner scanner;
 
     public MenuVeterinario() {
-        this.controller = new VeterinarioController();
+        VeterinarioDAO veterinarioDAO = new VeterinarioDAO();
+        this.controller = new VeterinarioController(veterinarioDAO);
         this.scanner = new Scanner(System.in);
     }
 

@@ -2,6 +2,7 @@ package com.veterinaria.veterinaria.dao;
 
 import com.veterinaria.veterinaria.model.ConectorSQL;
 import com.veterinaria.veterinaria.model.Veterinario;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class VeterinarioDAO {
     private Connection connection;
 
