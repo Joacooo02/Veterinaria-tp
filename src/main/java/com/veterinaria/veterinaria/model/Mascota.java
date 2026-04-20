@@ -2,19 +2,6 @@ package com.veterinaria.veterinaria.model;
 
 public class Mascota {
 
-    //TIP
-    // CREATE TABLE mascotas (
-    //    id_mascota INT AUTO_INCREMENT PRIMARY KEY,
-    //    nombre VARCHAR(50) NOT NULL,
-    //    especie VARCHAR(30),
-    //    raza VARCHAR(30),
-    //    edad int,
-    //    peso int,
-    //
-    //    id_cliente INT NOT NULL,
-    //    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE
-    //);
-
     private int id_mascota;
     private String nombre;
     private String especie;
@@ -82,5 +69,16 @@ public class Mascota {
         return id_cliente;
     }
 
-
+    @Override
+    public String toString() {
+        return "Mascota{" +
+                "id_mascota=" + id_mascota +
+                ", nombre='" + nombre + '\'' +
+                ", especie='" + especie + '\'' +
+                ", raza='" + raza + '\'' +
+                ", edad=" + edad +
+                ", peso=" + peso +
+                ", id_cliente=" + id_cliente +
+                '}';
+    }
 }
