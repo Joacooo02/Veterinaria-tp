@@ -9,6 +9,9 @@ public class Cliente {
     private String direccion;
     private boolean activo;
 
+	public Cliente() {
+	}
+
     public Cliente(int id, String nombre, String apellido, String telefono, String email, String direccion, boolean activo) {
         this.id = id;
         this.nombre = nombre;
