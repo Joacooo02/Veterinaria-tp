@@ -29,14 +29,19 @@ public class MenuVeterinario {
 
             switch (i) {
                 case 1:
+                    insertarVeterinario();
                     break;
                 case 2:
+                    obtenerTodos();
                     break;
                 case 3:
+                    buscarPorID();
                     break;
                 case 4:
+                    modificarVeterinario();
                     break;
                 case 5:
+                    eliminarVeterinario();
                     break;
                 case 0:
                     break;
