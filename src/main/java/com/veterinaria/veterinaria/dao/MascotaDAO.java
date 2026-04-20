@@ -91,7 +91,6 @@ public class MascotaDAO {
                         rs.getInt("peso"));
                  lista.add(m);
             }
-
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -99,4 +98,26 @@ public class MascotaDAO {
 
         return lista;
     }
+
+    public void actualizarMascota(Mascota m)
+    {
+        String sql = "UPDATE mascotas SET nombre = ?, especie = ?, raza = ?, edad = ?, peso = ? WHERE id_mascota = ?";
+
+        try (PreparedStatement ps = con.prepareStatement((sql))){
+
+            ps.setString(1,m.getNombre());
+            ps.setString(2,m.getEspecie());
+            ps.setString(3, m.getRaza());
+            ps.setInt(4,m.getEdad());
+            ps.setInt(5,m.getPeso());
+            ps.setInt(6,m.getId_mascota());
+            ps.executeUpdate();
+
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public 
 }
