@@ -19,6 +19,19 @@ public class Veterinario {
         this.email = email;
     }
 
+    public Veterinario(String nombre, String apellido, String matricula, String especialidad, String telefono, String email) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.matricula = matricula;
+        this.especialidad = especialidad;
+        this.telefono = telefono;
+        this.email = email;
+    }
+
+    public Veterinario() {
+
+    }
+
     public int getId() {
         return id;
     }
