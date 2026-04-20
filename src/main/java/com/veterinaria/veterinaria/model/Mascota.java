@@ -78,7 +78,6 @@ public class Mascota {
                 ", raza='" + raza + '\'' +
                 ", edad=" + edad +
                 ", peso=" + peso +
-                ", id_cliente=" + id_cliente +
-                '}';
+                ", id_cliente=" + id_cliente;
     }
 }
