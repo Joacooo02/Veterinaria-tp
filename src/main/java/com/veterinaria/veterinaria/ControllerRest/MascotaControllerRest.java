@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Mascotas")
+@RequestMapping("/mascotas")
 
 public class MascotaControllerRest {
 
@@ -36,20 +36,20 @@ public class MascotaControllerRest {
         mascotaDAO.insertarMascota(m);
     }
 
-    @PutMapping("/{Id}")
+    @PutMapping("/{id}")
     public void actualizar(@PathVariable int id, @RequestBody Mascota mascota)
     {
         mascota.setId_mascota(id);
         mascotaDAO.actualizarMascota(mascota);
     }
 
-    @DeleteMapping("/{ID}")
+    @DeleteMapping("/{id}")
     public void eliminar(@PathVariable int id)
     {
         mascotaDAO.eliminarMascota(id);
     }
 
-    @GetMapping("/{ID}")
+    @GetMapping("/{id}")
     public Optional<Mascota> buscar(@PathVariable int id)
     {
         return mascotaDAO.buscarMascota(id);
@@ -58,8 +58,7 @@ public class MascotaControllerRest {
     @GetMapping("/cliente/{idCliente}")
     public List<Mascota> porCliente(@PathVariable int idCliente)
     {
-        return mascotaDAO
+        return mascotaDAO.buscarPorCliente(idCliente);
     }
-
 
 }
