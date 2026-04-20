@@ -3,10 +3,7 @@ package com.veterinaria.veterinaria.dao;
 import com.veterinaria.veterinaria.model.ConectorSQL;
 import com.veterinaria.veterinaria.model.Mascota;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -133,5 +130,67 @@ public class MascotaDAO {
         {
             e.printStackTrace();
         }
+    }
+
+    /*
+    public Optional<Mascota> buscarMascota(int idMascota)
+    {
+        String sql = "SELECT * FROM mascotas WHERE id_mascota = ?";
+
+        try(PreparedStatement ps = con.prepareStatement((sql)))
+        {
+            ps.setInt(1,idMascota);
+            ResultSet rs =ps.executeQuery();
+
+            if(rs.next())
+            {
+                Mascota m = new Mascota(rs.getInt("id_mascota"), rs.getString("nombre"), rs.getString("especie"), rs.getString("raza"), rs.getInt("edad"), rs.getInt("peso"));
+                m.setId_mascota(rs.getInt("id_mascota"));
+                m.setNombre(rs.getString("nombre"));
+                m.setEspecie(rs.getString("especie"));
+                m.setEdad(rs.getInt("edad"));
+                m.setPeso(rs.getInt("peso"));
+
+                return Optional.of(m);
+            }
+
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
+    }
+     */
+
+    public List<Mascota> buscarPorCliente(int idCliente)
+    {
+        List<Mascota> lista = new ArrayList<>();
+        String sql = "SELECT * FROM mascotas WHERE id_cliente = ?";
+
+        try (PreparedStatement ps = con.prepareStatement((sql))){
+
+            ps.setInt(1, idCliente);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                Mascota m = new Mascota(rs.getInt("id_mascota"),
+                        rs.getString("nombre"),
+                        rs.getString("especie"),
+                        rs.getString("raza"),
+                        rs.getInt("edad"),
+                        rs.getInt("peso"),
+                        rs.getInt("id_cliente")
+                        );
+                lista.add(m);
+            }
+
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 }
