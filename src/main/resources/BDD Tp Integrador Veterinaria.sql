@@ -30,7 +30,6 @@ CREATE TABLE mascotas (
     raza VARCHAR(30),
     edad int,
     peso int,
-    
     id_cliente INT NOT NULL,           
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE
 );
@@ -39,7 +38,7 @@ CREATE TABLE turnos (
     id_turno INT AUTO_INCREMENT PRIMARY KEY,
     fecha_hora DATETIME NOT NULL,
     motivo VARCHAR(50) NOT NULL,
-    estado enum ('pendiente', 'confirmado', 'cancelado', 'atendido') NOT NULL,
+    estado VARCHAR(50) NOT NULL,
     
     id_cliente INT NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES mascotas(id_cliente) ON DELETE CASCADE,
