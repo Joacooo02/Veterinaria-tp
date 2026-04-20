@@ -6,6 +6,7 @@ import com.veterinaria.veterinaria.model.Mascota;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class MascotaController {
@@ -61,7 +62,59 @@ public class MascotaController {
         System.out.println("Ingrese el id de la mascota:");
         int idMascota = scanner.nextInt();
 
-        List<Mascota> lista = mascotaDAO.buscarMascota()
+        Optional<Mascota> m = mascotaDAO.buscarMascota(idMascota);
+
+        if(m.isPresent())
+        {
+            Mascota mascota = m.get();
+            System.out.println("Mascota encontrada:");
+            System.out.println("Id:" +mascota.getId_mascota());
+            System.out.println("Nombre: " +mascota.getNombre());
+            System.out.println("Especie: "+mascota.getEspecie());
+            System.out.println("Raza:" +mascota.getRaza());
+            System.out.println("Edad:"+mascota.getEdad());
+            System.out.println("Peso:"+mascota.getPeso());
+        }else
+        {
+            System.out.println("NO se encontro ninguna mascota");
+        }
+    }
+
+    public void actualizarMascota()
+    {
+        System.out.println("Ingrese el id de la mascota a actualizar: ");
+        int idMascota = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Ingrese el nuevo nombre: ");
+        String nombreNuevo = scanner.nextLine();
+        System.out.println("Ingrese la nueva especie: ");
+        String especieNueva = scanner.nextLine();
+        System.out.println("Ingrese la nueva raza: ");
+        String nuevaRaza = scanner.nextLine();
+        System.out.println("Ingrese la nueva edad:");
+        int nuevaEdad = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Ingrese el nuevo peso:");
+        int nuevoPeso = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Inrgese el nuevo duenio:");
+        int nuevoDuenio = scanner.nextInt();
+        scanner.nextLine();
+
+        Mascota mascota = new Mascota(idMascota,nombreNuevo,especieNueva,nuevaRaza,nuevaEdad,nuevoPeso,nuevoDuenio);
+        mascotaDAO.actualizarMascota(mascota);
+        System.out.println("Mascota actalizado con exito");
+    }
+
+
+    public void eliminarMascota()
+    {
+        System.out.println("Ingrese el id de la mascota a eliminar:");
+        int idMascota = scanner.nextInt();
+        scanner.nextLine();
+
+        mascotaDAO.eliminarMascota(idMascota);
+        System.out.println("Mascota eliminada correctamente");
     }
 
 
