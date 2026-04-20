@@ -64,5 +64,53 @@ public class VeterinarioDAO {
         return listaVeterinarios;
     }
 
-    
+    public Veterinario obtenerPorID(int id) {
+        Veterinario veterinario = null;
+        String sql = "SELECT * FROM veterinarios WHERE id_veterinario = ?";
+
+        try(PreparedStatement pstm = connection.prepareStatement(sql)) {
+            pstm.setInt(1, id);
+
+            try(ResultSet rs = pstm.executeQuery()) {
+                if(rs.next()) {
+                    veterinario.setId(rs.getInt("id_veterinario"));
+                    veterinario.setNombre(rs.getString("nombre"));
+                    veterinario.setApellido(rs.getString("apellido"));
+                    veterinario.setMatricula(rs.getString("matricula"));
+                    veterinario.setEspecialidad(rs.getString("especialidad"));
+                    veterinario.setTelefono(rs.getString("telefono"));
+                    veterinario.setEmail(rs.getString("email"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al mostrar el veterinario porr ID: " + e.getMessage());
+        }
+        return veterinario;
+    }
+
+    public void actualizarVeterinario(Veterinario veterinario) {
+        String sql = "UPDATE veterinarios SET nombre = ?, apellido = ?, matricula = ?, " +
+                "especialidad = ?, telefono = ?, email = ? WHERE id_veterinario = ?";
+
+        try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+
+            pstm.setString(1, veterinario.getNombre());
+            pstm.setString(2, veterinario.getApellido());
+            pstm.setString(3, veterinario.getMatricula());
+            pstm.setString(4, veterinario.getEspecialidad());
+            pstm.setString(5, veterinario.getTelefono());
+            pstm.setString(6, veterinario.getEmail());
+            // El ID va al final porque es la condición del WHERE
+            pstm.setInt(7, veterinario.getId());
+
+            int filasAfectadas = pstm.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Veterinario actualizado exitosamente.");
+            } else {
+                System.out.println("No se encontró el veterinario para actualizar.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el veterinario: " + e.getMessage());
+        }
+    }
 }
