@@ -69,5 +69,8 @@ public class MascotaDAO {
         return Optional.empty();
     }
 
-    
+    public void mostrarMascotas()
+    {
+        
+    }
 }
