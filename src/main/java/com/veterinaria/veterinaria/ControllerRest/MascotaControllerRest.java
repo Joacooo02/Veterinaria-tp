@@ -1,0 +1,39 @@
+package com.veterinaria.veterinaria.ControllerRest;
+
+import com.veterinaria.veterinaria.dao.MascotaDAO;
+import com.veterinaria.veterinaria.model.ConectorSQL;
+import com.veterinaria.veterinaria.model.Mascota;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.Connection;
+import java.util.List;
+
+@RestController
+@RequestMapping("/Mascotas")
+
+public class MascotaControllerRest {
+
+    //Atributos
+    private MascotaDAO mascotaDAO;
+
+    //Constructor
+
+    public MascotaControllerRest() {
+        Connection con = ConectorSQL.crearConexion();
+        this.mascotaDAO = new MascotaDAO(con);
+    }
+
+    @GetMapping //ESTO SE USA PARA MOSTRAR
+    public List<Mascota> listar()
+    {
+        return mascotaDAO.mostrarMascotas();
+    }
+
+    @PostMapping
+    public void insertar(@RequestBody Mascota m)
+    {
+
+    }
+
+
+}
