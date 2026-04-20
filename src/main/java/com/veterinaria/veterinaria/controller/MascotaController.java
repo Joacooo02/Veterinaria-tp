@@ -6,6 +6,7 @@ import com.veterinaria.veterinaria.model.Mascota;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class MascotaController {
@@ -18,7 +19,7 @@ public class MascotaController {
 
     //Constructor
 
-    public MascotaController(Connection con, MascotaDAO mascotaDAO) {
+    public MascotaController() {
         this.con = ConectorSQL.crearConexion();
         this.mascotaDAO = new MascotaDAO(con);
     }
@@ -61,7 +62,22 @@ public class MascotaController {
         System.out.println("Ingrese el id de la mascota:");
         int idMascota = scanner.nextInt();
 
-        List<Mascota> lista = mascotaDAO.buscarMascota()
+        Optional<Mascota> m = mascotaDAO.buscarMascota(idMascota);
+
+        if(m.isPresent())
+        {
+            Mascota mascota = m.get();
+            System.out.println("Mascota encontrada:");
+            System.out.println("Id:" +mascota.getId_mascota());
+            System.out.println("Nombre: " +mascota.getNombre());
+            System.out.println("Especie: "+mascota.getEspecie());
+            System.out.println("Raza:" +mascota.getRaza());
+            System.out.println("Edad:"+mascota.getEdad());
+            System.out.println("Peso:"+mascota.getPeso());
+        }else
+        {
+            System.out.println("NO se encontro ninguna mascota");
+        }
     }
 
 
