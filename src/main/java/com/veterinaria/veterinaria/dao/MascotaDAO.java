@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MascotaDAO {
@@ -51,7 +53,7 @@ public class MascotaDAO {
 
             if(rs.next())
             {
-                Mascota m = new Mascota();
+                Mascota m = new Mascota(rs.getInt("id_mascota"), rs.getString("nombre"), rs.getString("especie"), rs.getString("raza"), rs.getInt("edad"), rs.getInt("peso"));
                 m.setId_mascota(rs.getInt("id_mascota"));
                 m.setNombre(rs.getString("nombre"));
                 m.setEspecie(rs.getString("especie"));
@@ -69,9 +71,32 @@ public class MascotaDAO {
         return Optional.empty();
     }
 
-    public void mostrarMascotas()
+    public List<Mascota> mostrarMascotas()
     {
+        List<Mascota> lista = new ArrayList<>();
+        Mascota m = null;
+        try {
+            String sql = "SELECT * FROM mascotas";
+            PreparedStatement ps = con.prepareStatement((sql));
 
-        //comentario de prueba el commit
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                 m = new Mascota(rs.getInt("id_mascota"),
+                        rs.getString("nombre"),
+                        rs.getString("especie"),
+                        rs.getString("raza"),
+                        rs.getInt("edad"),
+                        rs.getInt("peso"));
+                 lista.add(m);
+            }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 }
