@@ -14,12 +14,12 @@ public class TurnoControllerRest {
 
     @GetMapping
     public List<Turno> obtenerTodosLosTurnos(){
-        return turnoDAO.obtenerTodos();
+        return turnoDAO.listarTurnos();
     }
 
     @GetMapping("/{id}")
     public Turno obtenerTurnoPorId(@PathVariable("id") int id_turno){
-        return turnoDAO.obtenerPorID(id_turno);
+        return turnoDAO.buscarTurnoPorId(id_turno);
     }
 
 

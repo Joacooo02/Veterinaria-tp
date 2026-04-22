@@ -29,13 +29,13 @@ public class VeterinarioControllerRest {
 
     @GetMapping
     public ResponseEntity<List<Veterinario>> listarTodos() {
-        List<Veterinario> lista = vetDAO.obtenerTodos();
+        List<Veterinario> lista = vetDAO.listarVeterinarios();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Veterinario> buscarPorID(@PathVariable int id) {
-        Veterinario veterinario = vetDAO.obtenerPorID(id);
+        Veterinario veterinario = vetDAO.buscarVeterinarioPorId(id);
 
         if (veterinario != null) {
             return new ResponseEntity<>(veterinario, HttpStatus.OK);
@@ -46,20 +46,20 @@ public class VeterinarioControllerRest {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> modificarVeterinario(@PathVariable int id, @RequestBody Veterinario vetActualizado) {
-        Veterinario vetExistente = vetDAO.obtenerPorID(id);
+        Veterinario vetExistente = vetDAO.buscarVeterinarioPorId(id);
 
         if(vetExistente == null) {
             return new ResponseEntity<>("Veterinario no encontrado.", HttpStatus.NOT_FOUND);
         }
         vetActualizado.setId(id);
-        vetDAO.actualizarVeterinario(vetActualizado);
+        vetDAO.modificarVeterinario(vetActualizado);
 
         return new ResponseEntity<>("Veterinario actualizado correctamente.", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarVeterinario(@PathVariable int id) {
-        Veterinario vetExistente = vetDAO.obtenerPorID(id);
+        Veterinario vetExistente = vetDAO.buscarVeterinarioPorId(id);
 
         if(vetExistente == null) {
             return new ResponseEntity<>("Veterinario no encontrado.", HttpStatus.NOT_FOUND);

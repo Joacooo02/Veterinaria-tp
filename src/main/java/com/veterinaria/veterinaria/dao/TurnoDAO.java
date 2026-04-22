@@ -2,21 +2,24 @@ package com.veterinaria.veterinaria.dao;
 
 import com.veterinaria.veterinaria.model.EstadoTurno;
 import com.veterinaria.veterinaria.model.Turno;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TurnoDAO {
-    private Connection conexion;
+	private final DataSource dataSource;
 
-    public TurnoDAO(Connection conexion) {
-        this.conexion = ConectorSQL.crearConexion();
-    }
+	public TurnoDAO(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
 	public void insertarTurno(Turno turno) {
 		String sql = "INSERT INTO turno (fecha, hora, motivo, estado, id_cliente, id_veterinario, id_mascota) VALUES (?,?,?,?,?,?,?)";
-		try {
-			PreparedStatement stmt = conexion.prepareStatement(sql);
+		try(Connection conexion = dataSource.getConnection();
+		    PreparedStatement stmt = conexion.prepareStatement(sql))
+		{
+
 			stmt.setDate(1, Date.valueOf(turno.getFecha()));
 			stmt.setTime(2, Time.valueOf(turno.getHora()));
 			stmt.setString(3, turno.getMotivo());
@@ -25,18 +28,19 @@ public class TurnoDAO {
 			stmt.setInt(6, turno.getIdVeterinario());
 			stmt.setInt(7, turno.getIdMascota());
 			stmt.executeUpdate();
-			System.out.println("Turno ingresado exitosamente.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List<Turno> obtenerTodos() {
+	public List<Turno> listarTurnos() {
 		List<Turno> listaTurnos = new ArrayList<>();
 		String sql = "SELECT * FROM turno";
 
-		try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
-			ResultSet rs = stmt.executeQuery();
+		try (Connection conexion = dataSource.getConnection();
+			PreparedStatement stmt = conexion.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery())
+		{
 			while (rs.next()) {
 				Turno turno = new Turno();
 				turno.setIdTurno(rs.getInt("id_turno"));
@@ -55,64 +59,97 @@ public class TurnoDAO {
 		return listaTurnos;
 	}
 
-	public Turno obtenerPorID(int id_turno) {
+	public Turno buscarTurnoPorId(int id_turno) {
 		Turno turno = null;
 		String sql = "SELECT * FROM turno WHERE id_turno = ?";
 
-		try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+		try (Connection conexion = dataSource.getConnection();
+			PreparedStatement stmt = conexion.prepareStatement(sql))
+		{
 			stmt.setInt(1, id_turno);
 
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-					turno.setIdTurno(rs.getInt("id_turno"));
-					turno.setFecha(rs.getDate("fecha").toLocalDate());
-					turno.setHora(rs.getTime("hora").toLocalTime());
-					turno.setMotivo(rs.getString("motivo"));
-					turno.setEstado(EstadoTurno.valueOf(rs.getString("estado").toUpperCase()));
-					turno.setIdCliente(rs.getInt("id_cliente"));
-					turno.setIdVeterinario(rs.getInt("id_veterinario"));
-					turno.setIdMascota(rs.getInt("id_mascota"));
+					rs.getInt("id_turno");
+					rs.getDate("fecha").toLocalDate();
+					rs.getTime("hora").toLocalTime();
+					rs.getString("motivo");
+					rs.getString("estado");
+					rs.getInt("id_cliente");
+					rs.getInt("id_veterinario");
+					rs.getInt("id_mascota");
 				}
 			}
 		} catch (SQLException e) {
-			System.err.println("Error al mostrar el turno por ID: " + e.getMessage());
+			e.printStackTrace();
 		}
 		return turno;
 	}
 
-	public void actualizarEstadoDeTurno(int id_turno, EstadoTurno estadoTurno) {
-		String sql = "UPDATE turno SET estado = ? WHERE id_turno = ?";
+	public void modificarTurno(Turno turno) {
+		StringBuilder sql = new StringBuilder("UPDATE turno SET ");
+		List<Object> parametros = new ArrayList<>();
 
-		try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
-			stmt.setString(1, estadoTurno.toString().toLowerCase());
-			stmt.setInt(2, id_turno);
+		if (turno.getFecha() != null) {
+			sql.append("fecha=?, ");
+			parametros.add(java.sql.Date.valueOf(turno.getFecha()));
+		}
+		if (turno.getHora() != null) {
+			sql.append("hora=?, ");
+			parametros.add(java.sql.Time.valueOf(turno.getHora()));
+		}
+		if (turno.getMotivo() != null) {
+			sql.append("motivo=?, ");
+			parametros.add(turno.getMotivo());
+		}
+		if (turno.getEstado() != null) {
+			sql.append("estado=?, ");
+			parametros.add(turno.getEstado());
+		}
+		if (turno.getIdCliente() > 0) {
+			sql.append("id_cliente=?, ");
+			parametros.add(turno.getIdCliente());
+		}
+		if (turno.getIdVeterinario() > 0) {
+			sql.append("id_veterinario=?, ");
+			parametros.add(turno.getIdVeterinario());
+		}
+		if (turno.getIdMascota() > 0) {
+			sql.append("id_mascota=?, ");
+			parametros.add(turno.getIdMascota());
+		}
+
+		sql.setLength(sql.length() - 2);
+		sql.append(" WHERE id_turno=?");
+		parametros.add(turno.getIdTurno());
+
+		try (Connection conexion = dataSource.getConnection();
+		     PreparedStatement stmt = conexion.prepareStatement(sql.toString())) {
+
+			for (int i = 0; i < parametros.size(); i++) {
+				stmt.setObject(i + 1, parametros.get(i));
+			}
 
 			int filasAfectadas = stmt.executeUpdate();
-			if (filasAfectadas > 0) {
-				System.out.println("Estado del turno actualizado exitosamente.");
-			} else {
-				System.out.println("No se encontró el turno para actualizar.");
-			}
+
 		} catch (SQLException e) {
-			System.err.println("Error al actualizar el estado del turno: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	public void eliminarTurno(int id_turno) {
 		String sql = "DELETE FROM turno WHERE id_turno = ?";
 
-		try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
-			stmt.setInt(1, id_turno);
+		try (Connection conexion = dataSource.getConnection();
+		     PreparedStatement stmt = conexion.prepareStatement(sql)) {
 
-			int filasAfectadas = stmt.executeUpdate();
-			if (filasAfectadas > 0) {
-				System.out.println("Turno eliminado exitosamente.");
-			} else {
-				System.out.println("No se encontró el turno para eliminar.");
-			}
+			stmt.setInt(1, id_turno);
+			stmt.executeUpdate();
+
 		} catch (SQLException e) {
-			System.err.println("Error al eliminar el turno: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
+
 }
 

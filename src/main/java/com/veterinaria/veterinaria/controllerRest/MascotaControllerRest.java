@@ -4,7 +4,6 @@ import com.veterinaria.veterinaria.dao.MascotaDAO;
 import com.veterinaria.veterinaria.model.Mascota;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class MascotaControllerRest {
 
     @GetMapping
     public List<Mascota> listar() {
-        return mascotaDAO.mostrarMascotas();
+        return mascotaDAO.listarMascotas();
     }
 
     @PostMapping
@@ -37,7 +36,7 @@ public class MascotaControllerRest {
     public void actualizar(@PathVariable int id, @RequestBody Mascota mascota)
     {
         mascota.setId_mascota(id);
-        mascotaDAO.actualizarMascota(mascota);
+        mascotaDAO.modificarMascota(mascota);
     }
 
     @DeleteMapping("/{id}")
@@ -49,13 +48,13 @@ public class MascotaControllerRest {
     @GetMapping("/{id}")
     public Optional<Mascota> buscar(@PathVariable int id)
     {
-        return mascotaDAO.buscarMascota(id);
+        return mascotaDAO.buscarMascotaporId(id);
     }
 
     @GetMapping("/cliente/{idCliente}")
     public List<Mascota> porCliente(@PathVariable int idCliente)
     {
-        return mascotaDAO.buscarPorCliente(idCliente);
+        return mascotaDAO.buscarMascotaPorCliente(idCliente);
     }
 
 }
