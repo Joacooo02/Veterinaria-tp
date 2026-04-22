@@ -1,106 +1,117 @@
 package com.veterinaria.veterinaria.model;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Turno {
 
-    private int id_turno;
-    private LocalDateTime fecha_hora;
-    private String motivo;
-    private EstadoTurno estado;
-    private int id_cliente;
-    private int id_veterinario;
-    private int id_mascota;
+	private int idTurno;
+	private LocalDate fecha;
+	private LocalTime hora;
+	private String motivo;
+	private EstadoTurno estado;
+	private int idCliente;
+	private int idVeterinario;
+	private int idMascota;
 
     public Turno() {
     }
 
-    public Turno(String motivo, int id_cliente, int id_mascota) {
-        this.id_turno = id_turno;
-        this.fecha_hora = fecha_hora;
-        this.motivo = motivo;
-        this.estado = EstadoTurno.Pendiente;
-        this.id_cliente = id_cliente;
-        this.id_veterinario = id_veterinario;
-        this.id_mascota = id_mascota;
-    }
+	public Turno(int idTurno, LocalDate fecha, LocalTime hora, String motivo, EstadoTurno estado, int idCliente, int idVeterinario, int idMascota) {
+		this.idTurno = idTurno;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.motivo = motivo;
+		this.estado = estado;
+		this.idCliente = idCliente;
+		this.idVeterinario = idVeterinario;
+		this.idMascota = idMascota;
+	}
 
-    public Turno(int id_turno, LocalDateTime fecha_hora, String motivo, EstadoTurno estado, int id_cliente, int id_veterinario, int id_mascota) {
-        this.id_turno = id_turno;
-        this.fecha_hora = fecha_hora;
-        this.motivo = motivo;
-        this.estado = EstadoTurno.Pendiente;
-        this.id_cliente = id_cliente;
-        this.id_veterinario = id_veterinario;
-        this.id_mascota = id_mascota;
-    }
+	public Turno(LocalDate fecha, LocalTime hora, String motivo, int idCliente, int idVeterinario, int idMascota) {
+		this.fecha = fecha;
+		this.hora = hora;
+		this.motivo = motivo;
+		this.idCliente = idCliente;
+		this.idVeterinario = idVeterinario;
+		this.idMascota = idMascota;
+	}
 
-    public int getId_turno() {
-        return id_turno;
-    }
+	public int getIdTurno() {
+		return idTurno;
+	}
 
-    public void setId_turno(int id_turno) {
-        this.id_turno = id_turno;
-    }
+	public void setIdTurno(int idTurno) {
+		this.idTurno = idTurno;
+	}
 
-    public LocalDateTime getFecha_hora() {
-        return fecha_hora;
-    }
+	public LocalDate getFecha() {
+		return fecha;
+	}
 
-    public void setFecha_hora(LocalDateTime fecha_hora) {
-        this.fecha_hora = fecha_hora;
-    }
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
-    public String getMotivo() {
-        return motivo;
-    }
+	public LocalTime getHora() {
+		return hora;
+	}
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
+	public void setHora(LocalTime hora) {
+		this.hora = hora;
+	}
 
-    public EstadoTurno getEstado() {
-        return estado;
-    }
+	public String getMotivo() {
+		return motivo;
+	}
 
-    public void setEstado(EstadoTurno estado) {
-        this.estado = estado;
-    }
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
 
-    public int getId_cliente() {
-        return id_cliente;
-    }
+	public EstadoTurno getEstado() {
+		return estado;
+	}
 
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
-    }
+	public void setEstado(EstadoTurno estado) {
+		this.estado = estado;
+	}
 
-    public int getId_veterinario() {
-        return id_veterinario;
-    }
+	public int getIdCliente() {
+		return idCliente;
+	}
 
-    public void setId_veterinario(int id_veterinario) {
-        this.id_veterinario = id_veterinario;
-    }
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
 
-    public int getId_mascota() {
-        return id_mascota;
-    }
+	public int getIdVeterinario() {
+		return idVeterinario;
+	}
 
-    public void setId_mascota(int id_mascota) {
-        this.id_mascota = id_mascota;
-    }
+	public void setIdVeterinario(int idVeterinario) {
+		this.idVeterinario = idVeterinario;
+	}
 
-    @Override
-    public String toString() {
-        return "Turno{" +
-                "id_turno=" + id_turno +
-                ", fecha_hora=" + fecha_hora +
-                ", motivo='" + motivo + '\'' +
-                ", estado=" + estado +
-                ", id_cliente=" + id_cliente +
-                ", id_veterinario=" + id_veterinario +
-                ", id_mascota=" + id_mascota +
-                '}';
-    }
+	public int getIdMascota() {
+		return idMascota;
+	}
+
+	public void setIdMascota(int idMascota) {
+		this.idMascota = idMascota;
+	}
+
+	@Override
+	public String toString() {
+		return "Turno{" +
+				"idTurno=" + idTurno +
+				", fecha=" + fecha +
+				", hora=" + hora +
+				", motivo='" + motivo + '\'' +
+				", estado=" + estado +
+				", idCliente=" + idCliente +
+				", idVeterinario=" + idVeterinario +
+				", idMascota=" + idMascota +
+				'}';
+	}
+
 }

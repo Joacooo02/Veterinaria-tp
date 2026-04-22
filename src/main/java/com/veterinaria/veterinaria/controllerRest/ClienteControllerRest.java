@@ -36,7 +36,7 @@ public class ClienteControllerRest {
 	}
 
 	@GetMapping("/{id}")
-	public Cliente buscarClientePorId(@PathVariable int id) {
+	public Cliente buscarClientePorId(@PathVariable("id") int id) {
 		return clienteDAO.buscarClientePorId(id);
 	}
 

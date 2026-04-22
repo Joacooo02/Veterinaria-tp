@@ -7,15 +7,11 @@ public class Mascota {
     private String especie;
     private String raza;
     private int edad;
-    private int peso;
+    private double peso;
     private int id_cliente;
 
 
-    public Mascota(int idMascota, String nombre, String especie, String raza, int edad, int peso) {
-    }
-
-    //INSERT
-    public Mascota(String nombre, String especie, String raza, int edad, int peso, int id_cliente) {
+    public Mascota(String nombre, String especie, String raza, int edad, double peso, int id_cliente) {
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
@@ -24,8 +20,7 @@ public class Mascota {
         this.id_cliente = id_cliente;
     }
 
-    //update y select
-    public Mascota(int id_mascota, String nombre, String especie, String raza, int edad, int peso, int id_cliente) {
+    public Mascota(int id_mascota, String nombre, String especie, String raza, int edad, double peso, int id_cliente) {
         this.id_mascota = id_mascota;
         this.nombre = nombre;
         this.especie = especie;
@@ -34,6 +29,9 @@ public class Mascota {
         this.peso = peso;
         this.id_cliente = id_cliente;
     }
+
+	public Mascota() {
+	}
 
     public int getId_mascota() {
         return id_mascota;
@@ -75,11 +73,11 @@ public class Mascota {
         this.edad = edad;
     }
 
-    public int getPeso() {
+    public double getPeso() {
         return peso;
     }
 
-    public void setPeso(int peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 

@@ -24,9 +24,8 @@ public class MascotaControllerRest {
         this.mascotaDAO = new MascotaDAO(con);
     }
 
-    @GetMapping //ESTO SE USA PARA MOSTRAR
-    public List<Mascota> listar()
-    {
+    @GetMapping
+    public List<Mascota> listar() {
         return mascotaDAO.mostrarMascotas();
     }
 

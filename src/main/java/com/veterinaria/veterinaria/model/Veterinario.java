@@ -87,4 +87,17 @@ public class Veterinario {
     public void setEmail(String email) {
         this.email = email;
     }
+
+	@Override
+	public String toString() {
+		return "Veterinario{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", apellido='" + apellido + '\'' +
+				", matricula='" + matricula + '\'' +
+				", especialidad='" + especialidad + '\'' +
+				", telefono='" + telefono + '\'' +
+				", email='" + email + '\'' +
+				'}';
+	}
 }

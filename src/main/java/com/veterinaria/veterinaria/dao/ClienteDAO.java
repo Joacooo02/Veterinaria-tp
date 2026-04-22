@@ -18,7 +18,7 @@ public class ClienteDAO {
     }
 
     public void insertarCliente(String nombre,String apellido,String telefono,String email,String direccion){
-	    String sql = "INSERT INTO clientes (nombre,apellido,telefono,email,direccion,activo) VALUES (?, ?, ?, ?, ?, true)";
+	    String sql = "INSERT INTO cliente (nombre,apellido,telefono,email,direccion,activo) VALUES (?, ?, ?, ?, ?, true)";
         try{
             PreparedStatement stmt = conexion.prepareStatement(sql);
             stmt.setString(1,nombre);
@@ -36,7 +36,7 @@ public class ClienteDAO {
 
 	public List<Cliente> listarClientes() {
 		List<Cliente> clientes = new ArrayList<>();
-		String sql = "SELECT * FROM clientes";
+		String sql = "SELECT * FROM cliente";
 
 		try {
 			PreparedStatement stmt = conexion.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class ClienteDAO {
 
 	public Cliente buscarClientePorId(int idCliente) {
 		Cliente cliente = null;
-		String sql = "SELECT * FROM clientes WHERE id_cliente = ?";
+		String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
 
 		try {
 			PreparedStatement stmt = conexion.prepareStatement(sql);
@@ -95,7 +95,7 @@ public class ClienteDAO {
 	}
 
 	public void modificarCliente(int idCliente, String nombre, String apellido, String telefono, String email, String direccion, boolean activo) {
-		String sql = "UPDATE clientes SET nombre=?, apellido=?, telefono=?, email=?, direccion=?, activo=? WHERE id_cliente=?";
+		String sql = "UPDATE cliente SET nombre=?, apellido=?, telefono=?, email=?, direccion=?, activo=? WHERE id_cliente=?";
 
 		try {
 			PreparedStatement stmt = conexion.prepareStatement(sql);
@@ -115,7 +115,7 @@ public class ClienteDAO {
 	}
 
 	public void eliminarCliente(int idCliente) {
-		String sql = "DELETE FROM clientes WHERE id_cliente=?";
+		String sql = "DELETE FROM cliente WHERE id_cliente=?";
 
 		try {
 			PreparedStatement stmt = conexion.prepareStatement(sql);

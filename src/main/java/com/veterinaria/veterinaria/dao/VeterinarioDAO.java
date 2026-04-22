@@ -19,7 +19,7 @@ public class VeterinarioDAO {
     }
 
     public void insertarVeterinario(Veterinario veterinario) {
-        String sql = "INSERT INTO veterinarios" +
+        String sql = "INSERT INTO veterinario" +
                 "(nombre, apellido, matricula, especialidad, telefono, email) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -41,7 +41,7 @@ public class VeterinarioDAO {
 
     public List<Veterinario> obtenerTodos() {
         List<Veterinario> listaVeterinarios = new ArrayList<>();
-        String sql = "SELECT * FROM veterinarios";
+        String sql = "SELECT * FROM veterinario";
 
         try(PreparedStatement pstm = connection.prepareStatement(sql)) {
             ResultSet rs = pstm.executeQuery(); {
@@ -67,7 +67,7 @@ public class VeterinarioDAO {
 
     public Veterinario obtenerPorID(int id) {
         Veterinario veterinario = null;
-        String sql = "SELECT * FROM veterinarios WHERE id_veterinario = ?";
+        String sql = "SELECT * FROM veterinario WHERE id_veterinario = ?";
 
         try(PreparedStatement pstm = connection.prepareStatement(sql)) {
             pstm.setInt(1, id);
@@ -90,7 +90,7 @@ public class VeterinarioDAO {
     }
 
     public void actualizarVeterinario(Veterinario veterinario) {
-        String sql = "UPDATE veterinarios SET nombre = ?, apellido = ?, matricula = ?, " +
+        String sql = "UPDATE veterinario SET nombre = ?, apellido = ?, matricula = ?, " +
                 "especialidad = ?, telefono = ?, email = ? WHERE id_veterinario = ?";
 
         try (PreparedStatement pstm = connection.prepareStatement(sql)) {
@@ -115,7 +115,7 @@ public class VeterinarioDAO {
     }
 
     public void eliminarVeterinario(int id) {
-        String sql = "DELETE FROM veterinarios WHERE id_veterinario = ?";
+        String sql = "DELETE FROM veterinario WHERE id_veterinario = ?";
 
         try(PreparedStatement pstm = connection.prepareStatement(sql)) {
             pstm.setInt(1, id);
