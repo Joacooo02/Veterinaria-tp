@@ -1,41 +1,65 @@
 package com.veterinaria.veterinaria.controllerRest;
 
 import com.veterinaria.veterinaria.dao.TurnoDAO;
+import com.veterinaria.veterinaria.model.Cliente;
 import com.veterinaria.veterinaria.model.Turno;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 @RestController
 @RequestMapping("/turnos")
 
 public class TurnoControllerRest {
-    private TurnoDAO turnoDAO = new TurnoDAO(null);
+    private final TurnoDAO turnoDAO;
 
-    @GetMapping
-    public List<Turno> obtenerTodosLosTurnos(){
+	public TurnoControllerRest(DataSource dataSource) {
+		this.turnoDAO = new TurnoDAO(dataSource);
+	}
+
+	@GetMapping
+    public List<Turno> listarTurnos(){
         return turnoDAO.listarTurnos();
     }
 
-    @GetMapping("/{id}")
-    public Turno obtenerTurnoPorId(@PathVariable("id") int id_turno){
-        return turnoDAO.buscarTurnoPorId(id_turno);
-    }
+	@PostMapping
+	public ResponseEntity<String> insertarTurno(@RequestBody Turno turno) {
+		try {
+			turnoDAO.insertarTurno(turno);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Turno creado exitosamente");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("Error al crear turno: " + e.getMessage());
+		}
+	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<Turno> buscarTurnoPorId(@PathVariable("id") int id) {
+		Turno turno = turnoDAO.buscarTurnoPorId(id);
+		return turno != null ? ResponseEntity.ok(turno) : ResponseEntity.notFound().build();
+	}
 
-/*
-    @PostMapping
-    public String crearTurno(@RequestBody Turno turno){
-        turnoDAO.insertarTurno(turno.getMotivo(), turno.getIdCliente(), turno.getIdMascota());
-        return "Turno creado exitosamente";
-    }
-*/
-    @DeleteMapping("/{id}")
-    public String eliminarTurno(@PathVariable("id") int id_turno){
-        turnoDAO.eliminarTurno(id_turno);
-        return "Turno eliminado exitosamente";
-    }
+	@PatchMapping("/{id}")
+	public ResponseEntity<String> modificarTurno(@PathVariable("id") int id, @RequestBody Turno turno) {
+		try {
+			turno.setIdTurno(id);
+			turnoDAO.modificarTurno(turno);
+			return ResponseEntity.ok("Turno " + id + " actualizado correctamente");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("Error al actualizar: " + e.getMessage());
+		}
+	}
 
-
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> eliminarTurno(@PathVariable("id") int id) {
+		try {
+			turnoDAO.eliminarTurno(id);
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
+	}
 
 }
