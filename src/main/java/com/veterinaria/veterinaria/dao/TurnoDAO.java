@@ -1,6 +1,5 @@
 package com.veterinaria.veterinaria.dao;
 
-import com.veterinaria.veterinaria.model.ConectorSQL;
 import com.veterinaria.veterinaria.model.EstadoTurno;
 import com.veterinaria.veterinaria.model.Turno;
 import java.sql.*;

@@ -1,7 +1,6 @@
 package com.veterinaria.veterinaria.controllerRest;
 
 import com.veterinaria.veterinaria.dao.MascotaDAO;
-import com.veterinaria.veterinaria.model.ConectorSQL;
 import com.veterinaria.veterinaria.model.Mascota;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +19,7 @@ public class MascotaControllerRest {
     //Constructor
 
     public MascotaControllerRest() {
-        Connection con = ConectorSQL.crearConexion();
-        this.mascotaDAO = new MascotaDAO(con);
+
     }
 
     @GetMapping

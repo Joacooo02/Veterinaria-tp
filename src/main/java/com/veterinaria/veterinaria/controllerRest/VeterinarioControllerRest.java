@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/veterinarios")
+@RequestMapping("/veterinarios")
 public class VeterinarioControllerRest {
     private final VeterinarioDAO vetDAO;
 

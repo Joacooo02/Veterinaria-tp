@@ -1,8 +1,8 @@
 package com.veterinaria.veterinaria.dao;
 
-import com.veterinaria.veterinaria.model.ConectorSQL;
 import com.veterinaria.veterinaria.model.Mascota;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +11,19 @@ import java.util.Optional;
 public class MascotaDAO {
 
     //Atributos
-    private Connection con;
+    private final DataSource dataSource;
 
-    //Constructor
-    public MascotaDAO(Connection con) {
-        this.con = ConectorSQL.crearConexion();
-    }
+	//Constructor
+	public MascotaDAO(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
     public void insertarMascota(Mascota mascota)
     {
-        try {
+	    String sql = "INSERT INTO mascota (nombre,especie,raza,edad,peso,id_cliente) VALUES (?,?,?,?,?,?)";
+        try(Connection conexion = dataSource.getConnection()) {
 
-            String sql = "INSERT INTO mascota (nombre,especie,raza,edad,peso,id_cliente) VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement((sql));
+            PreparedStatement ps = conexion.prepareStatement((sql));
 
             ps.setString(1,mascota.getNombre());
             ps.setString(2,mascota.getEspecie());

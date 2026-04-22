@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/turnos")
+@RequestMapping("/turnos")
 
 public class TurnoControllerRest {
     private TurnoDAO turnoDAO = new TurnoDAO(null);
@@ -22,12 +22,14 @@ public class TurnoControllerRest {
         return turnoDAO.obtenerPorID(id_turno);
     }
 
+
+/*
     @PostMapping
     public String crearTurno(@RequestBody Turno turno){
-        turnoDAO.insertarTurno(turno.getMotivo(), turno.getId_cliente(), turno.getId_mascota());
+        turnoDAO.insertarTurno(turno.getMotivo(), turno.getIdCliente(), turno.getIdMascota());
         return "Turno creado exitosamente";
     }
-
+*/
     @DeleteMapping("/{id}")
     public String eliminarTurno(@PathVariable("id") int id_turno){
         turnoDAO.eliminarTurno(id_turno);

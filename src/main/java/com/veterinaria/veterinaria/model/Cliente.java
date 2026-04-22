@@ -7,9 +7,9 @@ public class Cliente {
     private String telefono;
     private String email;
     private String direccion;
-    private boolean activo;
+    private Boolean activo;
 
-    public Cliente(int id, String nombre, String apellido, String telefono, String email, String direccion, boolean activo) {
+    public Cliente(int id, String nombre, String apellido, String telefono, String email, String direccion, Boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -79,13 +79,13 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public boolean isActivo() {
-        return activo;
-    }
+	public Boolean getActivo() {
+		return activo;
+	}
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
 
 	@Override
 	public String toString() {

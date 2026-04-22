@@ -1,6 +1,5 @@
 package com.veterinaria.veterinaria.dao;
 
-import com.veterinaria.veterinaria.model.ConectorSQL;
 import com.veterinaria.veterinaria.model.Veterinario;
 import org.springframework.stereotype.Repository;
 

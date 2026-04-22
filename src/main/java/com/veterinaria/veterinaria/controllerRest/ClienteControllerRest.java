@@ -3,31 +3,30 @@ package com.veterinaria.veterinaria.controllerRest;
 import com.veterinaria.veterinaria.dao.ClienteDAO;
 import com.veterinaria.veterinaria.model.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClienteControllerRest {
-	private ClienteDAO clienteDAO;
+	private final ClienteDAO clienteDAO;
 
 	@Autowired
-	public ClienteControllerRest(DataSource dataSource) throws SQLException {
-		this.clienteDAO = new ClienteDAO(dataSource.getConnection());
+	public ClienteControllerRest(DataSource dataSource) {
+		this.clienteDAO = new ClienteDAO(dataSource);
 	}
 
 	@PostMapping
-	public void insertarCliente(@RequestBody Cliente cliente) {
-		clienteDAO.insertarCliente(
-				cliente.getNombre(),
-				cliente.getApellido(),
-				cliente.getTelefono(),
-				cliente.getEmail(),
-				cliente.getDireccion()
-		);
+	public ResponseEntity<String> insertarCliente(@RequestBody Cliente cliente) {
+		try {
+			clienteDAO.insertarCliente(cliente);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Cliente creado exitosamente");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("Error al crear cliente: " + e.getMessage());
+		}
 	}
 
 	@GetMapping
@@ -36,25 +35,29 @@ public class ClienteControllerRest {
 	}
 
 	@GetMapping("/{id}")
-	public Cliente buscarClientePorId(@PathVariable("id") int id) {
-		return clienteDAO.buscarClientePorId(id);
+	public ResponseEntity<Cliente> buscarClientePorId(@PathVariable("id") int id) {
+		Cliente cliente = clienteDAO.buscarClientePorId(id);
+		return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
 	}
 
-	@PutMapping("/{id}")
-	public void modificarCliente(@PathVariable int id, @RequestBody Cliente cliente) {
-		clienteDAO.modificarCliente(
-				id,
-				cliente.getNombre(),
-				cliente.getApellido(),
-				cliente.getTelefono(),
-				cliente.getEmail(),
-				cliente.getDireccion(),
-				cliente.isActivo()
-		);
+	@PatchMapping("/{id}")
+	public ResponseEntity<String> modificarCliente(@PathVariable("id") int id, @RequestBody Cliente cliente) {
+		try {
+			cliente.setId(id);
+			clienteDAO.modificarCliente(cliente);
+			return ResponseEntity.ok("Cliente " + id + " actualizado correctamente");
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("Error al actualizar: " + e.getMessage());
+		}
 	}
 
 	@DeleteMapping("/{id}")
-	public void eliminarCliente(@PathVariable int id) {
-		clienteDAO.eliminarCliente(id);
+	public ResponseEntity<Void> eliminarCliente(@PathVariable("id") int id) {
+		try {
+			clienteDAO.eliminarCliente(id);
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().build();
+		}
 	}
 }
