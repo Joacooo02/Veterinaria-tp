@@ -47,7 +47,7 @@ public class TurnoDAO {
 				turno.setFecha(rs.getDate("fecha").toLocalDate());
 				turno.setHora(rs.getTime("hora").toLocalTime());
 				turno.setMotivo(rs.getString("motivo"));
-				turno.setEstado(EstadoTurno.valueOf(rs.getString("estado").toUpperCase()));
+				turno.setEstado(EstadoTurno.valueOf(rs.getString("estado")));
 				turno.setIdCliente(rs.getInt("id_cliente"));
 				turno.setIdVeterinario(rs.getInt("id_veterinario"));
 				turno.setIdMascota(rs.getInt("id_mascota"));
@@ -70,14 +70,16 @@ public class TurnoDAO {
 
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
-					rs.getInt("id_turno");
-					rs.getDate("fecha").toLocalDate();
-					rs.getTime("hora").toLocalTime();
-					rs.getString("motivo");
-					rs.getString("estado");
-					rs.getInt("id_cliente");
-					rs.getInt("id_veterinario");
-					rs.getInt("id_mascota");
+					turno = new Turno(
+					rs.getInt("id_turno"),
+					rs.getDate("fecha").toLocalDate(),
+					rs.getTime("hora").toLocalTime(),
+					rs.getString("motivo"),
+					EstadoTurno.valueOf(rs.getString("estado")),
+					rs.getInt("id_cliente"),
+					rs.getInt("id_veterinario"),
+					rs.getInt("id_mascota")
+					);
 				}
 			}
 		} catch (SQLException e) {
@@ -104,7 +106,7 @@ public class TurnoDAO {
 		}
 		if (turno.getEstado() != null) {
 			sql.append("estado=?, ");
-			parametros.add(turno.getEstado());
+			parametros.add(turno.getEstado().name());
 		}
 		if (turno.getIdCliente() > 0) {
 			sql.append("id_cliente=?, ");
