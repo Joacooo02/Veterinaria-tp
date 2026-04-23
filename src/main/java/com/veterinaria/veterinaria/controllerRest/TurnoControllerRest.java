@@ -1,8 +1,7 @@
 package com.veterinaria.veterinaria.controllerRest;
 
 import com.veterinaria.veterinaria.dao.TurnoDAO;
-import com.veterinaria.veterinaria.model.Cliente;
-import com.veterinaria.veterinaria.model.Turno;
+import com.veterinaria.veterinaria.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +59,27 @@ public class TurnoControllerRest {
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().build();
 		}
+	}
+
+	@GetMapping("/veterinario/{id}")
+	public ResponseEntity<List<Turno>> buscarTurnosPorVeterinario(@PathVariable("id") int idVet) {
+		List<Turno> turnos = turnoDAO.buscarTurnosPorVeterinario(idVet);
+
+		if (turnos.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(turnos);
+	}
+
+	@GetMapping("/detallado")
+	public ResponseEntity<List<TurnoDetalladoDTO>> listarTurnosDetallados() {
+		List<TurnoDetalladoDTO> detallados = turnoDAO.listarTurnosDetallados();
+
+		if (detallados.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+
+		return ResponseEntity.ok(detallados);
 	}
 
 }

@@ -2,6 +2,8 @@ package com.veterinaria.veterinaria.dao;
 
 import com.veterinaria.veterinaria.model.EstadoTurno;
 import com.veterinaria.veterinaria.model.Turno;
+import com.veterinaria.veterinaria.model.TurnoDetalladoDTO;
+
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -152,6 +154,75 @@ public class TurnoDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public List<Turno> buscarTurnosPorVeterinario(int idVet) {
+		List<Turno> lista = new ArrayList<>();
+
+		String sql = "SELECT * FROM turno WHERE id_veterinario = ?";
+
+		try (Connection conexion = dataSource.getConnection();
+		     PreparedStatement stmt = conexion.prepareStatement(sql)) {
+
+			stmt.setInt(1, idVet);
+
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					Turno t = new Turno(
+							rs.getInt("id_turno"),
+							rs.getDate("fecha").toLocalDate(),
+							rs.getTime("hora").toLocalTime(),
+							rs.getString("motivo"),
+							EstadoTurno.valueOf(rs.getString("estado")),
+							rs.getInt("id_cliente"),
+							rs.getInt("id_veterinario"),
+							rs.getInt("id_mascota")
+					);
+					lista.add(t);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
+
+	public List<TurnoDetalladoDTO> listarTurnosDetallados() {
+		List<TurnoDetalladoDTO> lista = new ArrayList<>();
+
+		String sql = "SELECT t.id_turno, t.fecha, t.hora, t.motivo, t.estado, " +
+				"c.nombre AS nombre_cliente, c.apellido AS apellido_cliente, " +
+				"m.nombre AS nombre_mascota, " +
+				"v.nombre AS nombre_vet, v.apellido AS apellido_vet " +
+				"FROM turno t " +
+				"JOIN cliente c ON t.id_cliente = c.id_cliente " +
+				"JOIN mascota m ON t.id_mascota = m.id_mascota " +
+				"JOIN veterinario v ON t.id_veterinario = v.id_veterinario";
+
+		try (Connection conexion = dataSource.getConnection();
+		     PreparedStatement stmt = conexion.prepareStatement(sql);
+		     ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				TurnoDetalladoDTO dto = new TurnoDetalladoDTO(
+						rs.getInt("id_turno"),
+						rs.getDate("fecha").toLocalDate(),
+						rs.getTime("hora").toLocalTime(),
+						rs.getString("motivo"),
+						EstadoTurno.valueOf(rs.getString("estado")),
+						rs.getString("nombre_cliente"),
+						rs.getString("apellido_cliente"),
+						rs.getString("nombre_mascota"),
+						rs.getString("nombre_vet"),
+						rs.getString("apellido_vet")
+				);
+				lista.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
+
 
 }
 
