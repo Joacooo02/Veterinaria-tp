@@ -14,8 +14,8 @@ public class TestConexion implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("🔥 Probando conexión...");
+        System.out.println("Probando conexión...");
         dataSource.getConnection();
-        System.out.println("✅ Conectado a MySQL correctamente");
+        System.out.println("Conectado a MySQL correctamente");
     }
 }
