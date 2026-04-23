@@ -79,13 +79,15 @@ public class VeterinarioDAO {
 
             try(ResultSet rs = pstm.executeQuery()) {
                 if(rs.next()) {
-                    veterinario.setId(rs.getInt("id_veterinario"));
-                    veterinario.setNombre(rs.getString("nombre"));
-                    veterinario.setApellido(rs.getString("apellido"));
-                    veterinario.setMatricula(rs.getString("matricula"));
-                    veterinario.setEspecialidad(rs.getString("especialidad"));
-                    veterinario.setTelefono(rs.getString("telefono"));
-                    veterinario.setEmail(rs.getString("email"));
+					veterinario = new Veterinario(
+                    rs.getInt("id_veterinario"),
+                    rs.getString("nombre"),
+                    rs.getString("apellido"),
+                    rs.getString("matricula"),
+                    rs.getString("especialidad"),
+                    rs.getString("telefono"),
+                    rs.getString("email")
+					);
                 }
             }
         } catch (SQLException e) {
@@ -124,7 +126,7 @@ public class VeterinarioDAO {
 		}
 
 		sql.setLength(sql.length() - 2);
-		sql.append(" WHERE id=?");
+		sql.append(" WHERE id_veterinario=?");
 		parametros.add(v.getId());
 
 		try (Connection conexion = dataSource.getConnection();
